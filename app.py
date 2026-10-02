@@ -9,10 +9,29 @@ from database import seed_data
 mimetypes.add_type('text/css', '.css')
 mimetypes.add_type('application/javascript', '.js')
 
+class VercelPathMiddleware:
+    """Vercel rewrites every URL to /api/index and hands the app *that* path. vercel.json passes the real
+    path along as ?__path=..., which is restored here before Flask routes the request."""
+
+    def __init__(self, wsgi_app):
+        self.wsgi_app = wsgi_app
+
+    def __call__(self, environ, start_response):
+        if environ.get('PATH_INFO', '').startswith('/api/index'):
+            from urllib.parse import parse_qs, urlencode
+            query = parse_qs(environ.get('QUERY_STRING', ''), keep_blank_values=True)
+            real = query.pop('__path', [None])[0]
+            if real is not None:
+                environ['PATH_INFO'] = real if real.startswith('/') else '/' + real
+                environ['QUERY_STRING'] = urlencode(query, doseq=True)
+        return self.wsgi_app(environ, start_response)
+
+
 def create_app():
     app = Flask(__name__, static_folder='static')
     app.config.from_object(Config)
     CORS(app)
+    app.wsgi_app = VercelPathMiddleware(app.wsgi_app)
     db.init_app(app)
 
 
