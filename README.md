@@ -5,7 +5,7 @@ repository (with duplicate detection), analyzes them with AI, calculates topic t
 draft Google Maps updates informed by that research.
 
 - **Live demo:** _<paste your Vercel URL>_
-- **Repository:** _<paste your GitHub URL>_
+- **Repository:** https://github.com/visin14/gmaps-competitor-intel
 - **Demo video:** _<paste link>_
 
 ## Workflow
