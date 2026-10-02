@@ -1,0 +1,117 @@
+[
+  {
+    "competitor_id": 1,
+    "competitor_name": "Naturals Salon",
+    "total_posts": 11,
+    "posts_per_week": 1.54,
+    "top_topics": [
+      {
+        "topic": "Hair Care Tips",
+        "count": 2
+      },
+      {
+        "topic": "Festival Offer",
+        "count": 2
+      },
+      {
+        "topic": "Staff Spotlight",
+        "count": 2
+      }
+    ],
+    "top_cta": "book now",
+    "offer_share": 45,
+    "last_post_date": "2026-10-02"
+  },
+  {
+    "competitor_id": 2,
+    "competitor_name": "Enrich Salon",
+    "total_posts": 11,
+    "posts_per_week": 1.54,
+    "top_topics": [
+      {
+        "topic": "Hair Care Tips",
+        "count": 4
+      },
+      {
+        "topic": "Hair Color Trends",
+        "count": 2
+      },
+      {
+        "topic": "Before/After Transformation",
+        "count": 2
+      }
+    ],
+    "top_cta": "call to book",
+    "offer_share": 45,
+    "last_post_date": "2026-10-01"
+  },
+  {
+    "competitor_id": 3,
+    "competitor_name": "Jawed Habib",
+    "total_posts": 11,
+    "posts_per_week": 1.54,
+    "top_topics": [
+      {
+        "topic": "Appointment Availability",
+        "count": 4
+      },
+      {
+        "topic": "Seasonal Discount",
+        "count": 3
+      },
+      {
+        "topic": "Keratin Treatment",
+        "count": 2
+      }
+    ],
+    "top_cta": "learn more",
+    "offer_share": 36,
+    "last_post_date": "2026-09-30"
+  },
+  {
+    "competitor_id": 4,
+    "competitor_name": "Looks Salon",
+    "total_posts": 11,
+    "posts_per_week": 1.54,
+    "top_topics": [
+      {
+        "topic": "Hair Care Tips",
+        "count": 3
+      },
+      {
+        "topic": "Before/After Transformation",
+        "count": 2
+      },
+      {
+        "topic": "Keratin Treatment",
+        "count": 2
+      }
+    ],
+    "top_cta": "visit us",
+    "offer_share": 55,
+    "last_post_date": "2026-09-29"
+  },
+  {
+    "competitor_id": 5,
+    "competitor_name": "Green Trends",
+    "total_posts": 11,
+    "posts_per_week": 1.54,
+    "top_topics": [
+      {
+        "topic": "Bridal Package",
+        "count": 3
+      },
+      {
+        "topic": "Hair Care Tips",
+        "count": 3
+      },
+      {
+        "topic": "Festival Offer",
+        "count": 2
+      }
+    ],
+    "top_cta": "message us on whatsapp",
+    "offer_share": 73,
+    "last_post_date": "2026-09-28"
+  }
+]

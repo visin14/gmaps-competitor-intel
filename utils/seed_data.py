@@ -2,6 +2,44 @@ import json, random, hashlib, uuid
 from datetime import datetime, timedelta
 from models import db, Project, Competitor, Keyword, Post, ScrapeJob, ScrapeLog, GeneratedIdea, TrendAnalysis
 from utils.fingerprint import compute_fingerprint, compute_idea_fingerprint
+DEMO_TOPICS = [
+        ('Hair Care Tips', 'Monsoon hair woes? Our expert stylists recommend a weekly oil massage and protein treatment to keep your locks healthy. Visit us this week and enjoy 15% off all conditioning services. Call to book your slot!'),
+        ('Festival Offer', 'Navratri is here! Get festival-ready with our special Garba Glam package — includes blow-dry, styling & nail art at just ₹999. Limited slots available. Book now!'),
+        ('Before/After Transformation', 'Check out this incredible hair transformation! Our client came in with damaged, frizzy hair and left with smooth, shiny, healthy locks. All thanks to our signature Brazilian Blowout treatment. Book your transformation today!'),
+        ('New Service/Product', 'We\'re excited to announce our new Scalp Micropigmentation service! Perfect for those experiencing hair thinning or baldness. Consult our certified specialists. First 10 bookings get a complimentary scalp analysis!'),
+        ('Appointment Availability', 'Good news — slots are now open for this weekend! Whether you need a quick trim, full color, or a bridal trial, we have you covered. Book via link in bio or call us directly.'),
+        ('Bridal Package', 'Our Dream Bridal Package includes pre-bridal facials, hair spa, mehendi, makeup trial and final day makeup. Packages starting at ₹19,999. Book your bridal consultation today!'),
+        ('Hair Color Trends', 'Balayage is trending this season and we\'re obsessed! Our expert colorists craft custom balayage looks tailored to your skin tone. Get a free consultation this week. Limited slots!'),
+        ('Keratin Treatment', '90-day keratin smoothing treatment now available at our salon! Say goodbye to frizz and hello to glossy, manageable hair. Treatment time: 2.5 hours. Book your slot this week!'),
+        ('Seasonal Discount', 'End of season sale is LIVE! Get flat 30% off on all hair services this week only. Offer valid till Sunday. Don\'t miss out — call to book!'),
+        ('Staff Spotlight', 'Meet Priya, our star hair colorist with 8 years of experience! She specializes in global color, highlights, and creative fashion colors. Book with Priya this week and get a complimentary toner!')
+]
+
+
+CONTENT_TYPES = ['Promotional', 'Educational', 'Seasonal', 'Announcement', 'Engagement']
+CTAS = ['Book now', 'Call to book', 'Learn more', 'Visit us', 'Message us on WhatsApp']
+
+
+def create_demo_posts(project, competitors, base_time, count=55):
+    """Create the demo repository. Topic popularity is skewed and each competitor covers several topics,
+    so trend analysis shows realistic overlap (deterministic: same data on every fresh seed)."""
+    rng = random.Random(7)
+    weights = [9, 7, 5, 4, 7, 5, 6, 6, 8, 3]  # relative popularity of DEMO_TOPICS
+    for i in range(count):
+        comp = competitors[i % len(competitors)]
+        topic_name, template_text = rng.choices(DEMO_TOPICS, weights=weights)[0]
+        text = template_text.replace('!', f'! #{i:02d}', 1)
+        offer = 'Discount' if ('off' in text.lower() or '₹' in text) else 'N/A'
+        db.session.add(Post(
+            project_id=project.id, competitor_id=comp.id, competitor_name=comp.name,
+            post_text=text, published_date=(base_time - timedelta(days=i)).strftime('%Y-%m-%d'),
+            images=json.dumps([]), call_to_action=CTAS[i % len(CTAS)],
+            fingerprint=compute_fingerprint(post_text=text, competitor_id=comp.id),
+            scrape_date=base_time - timedelta(days=i % 5), ai_analyzed=True,
+            ai_main_topic=topic_name, ai_sub_topic='General', ai_content_type=CONTENT_TYPES[i % len(CONTENT_TYPES)],
+            ai_keywords=json.dumps(['salon', 'hair', 'beauty', topic_name.lower()]),
+            ai_cta=CTAS[i % len(CTAS)], ai_offer_pattern=offer, ai_raw=json.dumps({'dummy': True})))
+
 
 def seed_data_for_app(app):
     with app.app_context():
@@ -36,48 +74,10 @@ def seed_data_for_app(app):
         db.session.commit()
         
         # Create Posts
-        topics = [
-            ('Hair Care Tips', 'Monsoon hair woes? Our expert stylists recommend a weekly oil massage and protein treatment to keep your locks healthy. Visit us this week and enjoy 15% off all conditioning services. Call to book your slot!'),
-            ('Festival Offer', 'Navratri is here! Get festival-ready with our special Garba Glam package — includes blow-dry, styling & nail art at just ₹999. Limited slots available. Book now!'),
-            ('Before/After Transformation', 'Check out this incredible hair transformation! Our client came in with damaged, frizzy hair and left with smooth, shiny, healthy locks. All thanks to our signature Brazilian Blowout treatment. Book your transformation today!'),
-            ('New Service/Product', 'We\'re excited to announce our new Scalp Micropigmentation service! Perfect for those experiencing hair thinning or baldness. Consult our certified specialists. First 10 bookings get a complimentary scalp analysis!'),
-            ('Appointment Availability', 'Good news — slots are now open for this weekend! Whether you need a quick trim, full color, or a bridal trial, we have you covered. Book via link in bio or call us directly.'),
-            ('Bridal Package', 'Our Dream Bridal Package includes pre-bridal facials, hair spa, mehendi, makeup trial and final day makeup. Packages starting at ₹19,999. Book your bridal consultation today!'),
-            ('Hair Color Trends', 'Balayage is trending this season and we\'re obsessed! Our expert colorists craft custom balayage looks tailored to your skin tone. Get a free consultation this week. Limited slots!'),
-            ('Keratin Treatment', '90-day keratin smoothing treatment now available at our salon! Say goodbye to frizz and hello to glossy, manageable hair. Treatment time: 2.5 hours. Book your slot this week!'),
-            ('Seasonal Discount', 'End of season sale is LIVE! Get flat 30% off on all hair services this week only. Offer valid till Sunday. Don\'t miss out — call to book!'),
-            ('Staff Spotlight', 'Meet Priya, our star hair colorist with 8 years of experience! She specializes in global color, highlights, and creative fashion colors. Book with Priya this week and get a complimentary toner!')
-        ]
+        topics = DEMO_TOPICS
         
         base_time = datetime.utcnow()
-        for i in range(55):
-            comp = competitors[i % 5]
-            topic_name, template_text = topics[i % 10]
-            
-            # Make text slightly unique
-            text = template_text.replace('!', f'! #{i:02d}', 1)
-            fp = compute_fingerprint(post_text=text, competitor_id=comp.id)
-            
-            post = Post(
-                project_id=project.id,
-                competitor_id=comp.id,
-                competitor_name=comp.name,
-                post_text=text,
-                published_date=(base_time - timedelta(days=i)).strftime('%Y-%m-%d'),
-                images=json.dumps([]),
-                call_to_action='Book now' if i % 2 == 0 else 'Learn more',
-                fingerprint=fp,
-                scrape_date=base_time - timedelta(days=i%5),
-                ai_analyzed=True,
-                ai_main_topic=topic_name,
-                ai_sub_topic='General',
-                ai_content_type='Promotional',
-                ai_keywords=json.dumps(['salon', 'hair', 'beauty', topic_name.lower()]),
-                ai_cta='Book appointment',
-                ai_offer_pattern='Discount' if 'off' in text.lower() or '₹' in text else 'N/A',
-                ai_raw=json.dumps({'dummy': True})
-            )
-            db.session.add(post)
+        create_demo_posts(project, competitors, base_time)
         db.session.commit()
         
         # Scrape Jobs and Logs

@@ -1,6 +1,7 @@
 import json
 from models import db, Project, Post, Competitor, GeneratedIdea
-from utils.seed_data import seed_data_for_app
+from datetime import datetime
+from utils.seed_data import seed_data_for_app, create_demo_posts
 from utils.demo_assets import make_demo_image, SAMPLE_IDEAS
 from utils.fingerprint import compute_idea_fingerprint
 from utils.text_utils import detect_topic, detect_keywords
@@ -20,6 +21,22 @@ def upgrade_demo_data(app):
     if not demo_posts:
         return
     changed = False
+
+    # Older demo data tied every topic to a single competitor (so every trend read "1 of 5"); regenerate it.
+    topic_users = {}
+    for p in demo_posts:
+        topic_users.setdefault(p.ai_main_topic, set()).add(p.competitor_id)
+    if all(len(users) == 1 for users in topic_users.values()):
+        project_id = demo_posts[0].project_id
+        project = db.session.get(Project, project_id)
+        competitors = Competitor.query.filter_by(project_id=project_id).order_by(Competitor.id).all()
+        for p in demo_posts:
+            db.session.delete(p)
+        db.session.flush()
+        create_demo_posts(project, competitors, datetime.utcnow(), count=len(demo_posts))
+        db.session.commit()
+        demo_posts = [p for p in Post.query.filter_by(project_id=project_id).all() if p.ai_raw and '"dummy"' in p.ai_raw]
+        changed = True
     comps = {c.id: c for c in Competitor.query.all()}
     for p in demo_posts:
         comp = comps.get(p.competitor_id)

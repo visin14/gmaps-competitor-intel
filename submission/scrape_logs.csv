@@ -1,0 +1,31 @@
+﻿job_id,competitor_name,start_time,end_time,posts_found,new_posts,duplicates_skipped,images_downloaded,status,captcha_encountered,manual_intervention,error_info
+1,Naturals Salon,2026-09-30T10:41:20.639331,2026-09-30T10:41:20.639331,11,11,0,0,success,False,False,
+1,Enrich Salon,2026-09-30T10:41:20.639331,2026-09-30T10:41:20.639331,11,11,0,0,success,False,False,
+1,Jawed Habib,2026-09-30T10:41:20.639331,2026-09-30T10:41:20.639331,11,11,0,0,success,False,False,
+1,Looks Salon,2026-09-30T10:41:20.639331,2026-09-30T10:41:20.639331,11,11,0,0,success,False,False,
+1,Green Trends,2026-09-30T10:41:20.639331,2026-09-30T10:41:20.639331,11,11,0,0,success,False,False,
+2,Naturals Salon,2026-10-02T10:41:20.639331,2026-10-02T10:41:20.639331,11,0,11,0,success,False,False,
+2,Enrich Salon,2026-10-02T10:41:20.639331,2026-10-02T10:41:20.639331,11,0,11,0,success,False,False,
+2,Jawed Habib,2026-10-02T10:41:20.639331,2026-10-02T10:41:20.639331,11,0,11,0,success,False,False,
+2,Looks Salon,2026-10-02T10:41:20.639331,2026-10-02T10:41:20.639331,11,0,11,0,success,False,False,
+2,Green Trends,2026-10-02T10:41:20.639331,2026-10-02T10:41:20.639331,11,0,11,0,success,False,False,
+3,Naturals Salon,2026-10-02T10:44:48.622986,2026-10-02T10:44:54.090542,0,0,0,0,success,False,False,
+4,Enrich Salon,2026-10-02T10:44:51.074587,2026-10-02T10:44:56.492094,0,0,0,0,success,False,False,
+4,Jawed Habib,2026-10-02T10:44:56.534249,2026-10-02T10:45:01.248363,0,0,0,0,success,False,False,
+4,Looks Salon,2026-10-02T10:45:01.267710,,0,0,0,0,,True,False,
+5,Naturals Salon,2026-10-02T10:45:14.505814,2026-10-02T10:45:20.923202,0,0,0,0,success,False,False,
+5,Enrich Salon,2026-10-02T10:45:20.950919,2026-10-02T10:45:25.588485,0,0,0,0,success,False,False,
+5,Jawed Habib,2026-10-02T10:45:25.612619,2026-10-02T10:45:30.445508,0,0,0,0,success,False,False,
+5,Looks Salon,2026-10-02T10:45:30.465599,2026-10-02T10:45:34.914715,0,0,0,0,success,False,False,
+5,Green Trends,2026-10-02T10:45:34.934354,2026-10-02T10:45:39.538469,0,0,0,0,success,False,False,
+6,Naturals Salon,2026-10-02T10:58:13.427397,2026-10-02T10:58:19.643485,0,0,0,0,success,False,False,
+6,Enrich Salon,2026-10-02T10:58:19.675371,2026-10-02T10:58:24.381552,0,0,0,0,success,False,False,
+6,Jawed Habib,2026-10-02T10:58:24.400929,2026-10-02T10:58:29.303999,0,0,0,0,success,False,False,
+6,Looks Salon,2026-10-02T10:58:29.324568,2026-10-02T10:58:33.841542,0,0,0,0,success,False,False,
+6,Green Trends,2026-10-02T10:58:33.867796,2026-10-02T10:58:38.378440,0,0,0,0,success,False,False,
+7,Enrich Salon,2026-10-02T15:46:57.230361,2026-10-02T15:47:20.543812,0,0,0,0,no_updates,False,False,"No ""Updates"" tab found on this profile (it may not publish updates) (debug snapshot: instance/scrape_debug/2_20261002_154720.html)"
+12,Naturals Salon,2026-10-02T15:57:07.330880,2026-10-02T15:57:30.676677,0,0,0,0,no_updates,False,False,"No ""Updates"" tab found on this profile (it may not publish updates) (debug snapshot: instance/scrape_debug/1_20261002_155730.html)"
+12,Enrich Salon,2026-10-02T15:57:34.401405,2026-10-02T15:57:56.627288,0,0,0,0,no_updates,False,False,"No ""Updates"" tab found on this profile (it may not publish updates) (debug snapshot: instance/scrape_debug/2_20261002_155756.html)"
+12,Jawed Habib,2026-10-02T15:58:00.002471,2026-10-02T15:58:22.312124,0,0,0,0,no_updates,False,False,"No ""Updates"" tab found on this profile (it may not publish updates) (debug snapshot: instance/scrape_debug/3_20261002_155822.html)"
+12,Looks Salon,2026-10-02T15:58:25.794079,2026-10-02T15:58:48.040308,0,0,0,0,no_updates,False,False,"No ""Updates"" tab found on this profile (it may not publish updates) (debug snapshot: instance/scrape_debug/4_20261002_155847.html)"
+12,Green Trends,2026-10-02T15:58:52.702634,2026-10-02T15:59:15.430467,0,0,0,0,no_updates,False,False,"No ""Updates"" tab found on this profile (it may not publish updates) (debug snapshot: instance/scrape_debug/5_20261002_155915.html)"
