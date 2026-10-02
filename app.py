@@ -55,8 +55,26 @@ def create_app():
     def index():
         return send_from_directory(app.static_folder, 'index.html')
 
+    @app.route('/api/health')
+    def health():
+        """Deployment diagnostics: what the platform passes to the app and whether static files shipped."""
+        from flask import request
+        index_path = os.path.join(app.static_folder, 'index.html')
+        return jsonify({
+            'success': True,
+            'path': request.path,
+            'vercel_headers': {k: v for k, v in request.headers.items() if k.lower().startswith(('x-vercel', 'x-matched', 'x-forwarded-uri', 'x-original'))},
+            'on_vercel': bool(os.environ.get('VERCEL')),
+            'static_folder_exists': os.path.isdir(app.static_folder),
+            'index_html_exists': os.path.exists(index_path),
+            'root_files': sorted(os.listdir(app.root_path))[:40],
+            'db_scheme': app.config['SQLALCHEMY_DATABASE_URI'].split(':')[0],
+        })
+
     @app.route('/<path:path>')
     def serve_static(path):
+        if path in ('api/index', 'api/index.py'):  # Vercel function entry path: treat as the home page
+            return send_from_directory(app.static_folder, 'index.html')
         if path.startswith('api/'):
             return jsonify({'success': False, 'message': 'Not found'}), 404
         if os.path.exists(os.path.join(app.static_folder, path)):
