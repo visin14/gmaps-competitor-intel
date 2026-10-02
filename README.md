@@ -4,7 +4,7 @@ Web tool that collects Google Maps **Updates/Posts** from manually chosen compet
 repository (with duplicate detection), analyzes them with AI, calculates topic trends, and generates complete
 draft Google Maps updates informed by that research.
 
-- **Live demo:** _<paste your Vercel URL>_
+- **Live demo:** https://gmaps-competitor-intel.vercel.app
 - **Repository:** https://github.com/visin14/gmaps-competitor-intel
 - **Demo video:** _<paste link>_
 
