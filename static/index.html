@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapIntel — Google Maps Competitor Intelligence</title>
+  <meta name="description" content="Track, analyze and outsmart your competitors with AI-powered Google Maps update intelligence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <style>
+    /* Lightbox base CSS inline as requested */
+    .lightbox {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.9); z-index: 10000;
+      display: flex; justify-content: center; align-items: center;
+      opacity: 1; transition: opacity 0.3s;
+    }
+    .lightbox.hidden { opacity: 0; pointer-events: none; }
+    .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 20px; font-size: 30px;
+      color: white; background: none; border: none; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">M</div>
+        <span class="logo-text">Map<span class="logo-accent">Intel</span></span>
+      </div>
+      
+      <div class="project-selector">
+        <div class="project-selector-label">Active Project</div>
+        <select id="project-select" class="project-select">
+          <option value="">Select a project...</option>
+        </select>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active" data-page="dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="#" class="nav-link" data-page="projects">
+          <span class="nav-icon">📁</span>
+          <span class="nav-text">Projects</span>
+        </a>
+        <a href="#" class="nav-link" data-page="competitors">
+          <span class="nav-icon">🎯</span>
+          <span class="nav-text">Competitors</span>
+        </a>
+        <a href="#" class="nav-link" data-page="keywords">
+          <span class="nav-icon">🔑</span>
+          <span class="nav-text">Keywords</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a href="#" class="nav-link" data-page="scraping">
+          <span class="nav-icon">🔍</span>
+          <span class="nav-text">Scraping</span>
+        </a>
+        <a href="#" class="nav-link" data-page="repository">
+          <span class="nav-icon">🗄️</span>
+          <span class="nav-text">Repository</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a href="#" class="nav-link" data-page="analysis">
+          <span class="nav-icon">🧠</span>
+          <span class="nav-text">AI Analysis</span>
+        </a>
+        <a href="#" class="nav-link" data-page="trends">
+          <span class="nav-icon">📈</span>
+          <span class="nav-text">Trends</span>
+        </a>
+        <a href="#" class="nav-link" data-page="generator">
+          <span class="nav-icon">✨</span>
+          <span class="nav-text">Generator</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="sidebar-version">MapIntel v1.0</div>
+      </div>
+    </aside>
+    
+    <main class="main-content">
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="topbar-title" id="page-title">Dashboard</div>
+        <div class="topbar-right">
+          <div class="project-badge" id="project-badge">No project selected</div>
+        </div>
+      </header>
+      <div class="page-container" id="page-container">
+        <div class="loading-page">
+          <div class="loading-spinner"></div>
+          <p>Loading MapIntel...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <div id="toast-container"></div>
+  
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="Modal.handleOverlayClick(event)">
+    <div class="modal" id="modal-content"></div>
+  </div>
+  
+  <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  </div>
+
+  <script src="/js/components/modal.js"></script>
+  <script src="/js/components/toast.js"></script>
+  <script src="/js/components/charts.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/pages/dashboard.js"></script>
+  <script src="/js/pages/projects.js"></script>
+  <script src="/js/pages/competitors.js"></script>
+  <script src="/js/pages/keywords.js"></script>
+  <script src="/js/pages/scraping.js"></script>
+  <script src="/js/pages/repository.js"></script>
+  <script src="/js/pages/analysis.js"></script>
+  <script src="/js/pages/trends.js"></script>
+  <script src="/js/pages/generator.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
